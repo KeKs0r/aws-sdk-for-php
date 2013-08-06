@@ -919,11 +919,12 @@ class AmazonS3 extends CFRuntime
 			{
 				$query_params['x-amz-security-token'] = $this->auth_token;
 			}
-
+            var_dump($this->request_url . $conjunction . http_build_query($query_params, '', '&'));
 			return $this->request_url . $conjunction . http_build_query($query_params, '', '&');
 		}
 		elseif (isset($opt['preauth']))
 		{
+            var_dump($this->request_url);
 			return $this->request_url;
 		}
 
@@ -965,6 +966,7 @@ class AmazonS3 extends CFRuntime
 		{
 			$headers['x-aws-requestbody'] = $opt['body'];
 		}
+        
 
 		$data = new $this->response_class($headers, $this->parse_callback($request->get_response_body()), $request->get_response_code());
 
