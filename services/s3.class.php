@@ -902,7 +902,7 @@ class AmazonS3 extends CFRuntime
 		$string_to_sign .= (($bucket === '' || $this->resource_prefix === '/' . $bucket) ? '' : ('/' . $bucket)) . $signable_resource . urldecode($signable_query_string);
 
 		// Hash the AWS secret key and generate a signature for the request.
-		$signature = base64_encode(hash_hmac('sha1', $string_to_sign, $this->secret_key, true));
+		$signature = rawurlencode(base64_encode(hash_hmac('sha1', $string_to_sign, $this->secret_key, true)));
 		$request->add_header('Authorization', 'AWS ' . $this->key . ':' . $signature);
 
 		// If we're generating a URL, return the URL to the calling method.
